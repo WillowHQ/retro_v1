@@ -1,7 +1,12 @@
+import { useEffect } from 'react'
 import Head from 'next/head'
+import { auth } from '../components/Firebase'
 import SignIn from '../components/SignIn.js'
 
 export default function Home() {
+  useEffect(() =>{
+    auth.onAuthStateChanged((user)=> console.log({user}))
+  })
   return (
     <div className="container">
       <Head>

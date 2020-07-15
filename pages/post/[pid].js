@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { auth } from '../../components/Firebase.js'
 //import SignIn from '../../components/SignIn.js'
 
 //TODO how do we get the board to load on this route. 
@@ -6,7 +8,12 @@ import { useRouter } from 'next/router'
 // If they are allowed to see it, send them to the board
 // If they aren't show an appropriate not authorized error. 
 
-const Post = () => {
+function Post(){
+  useEffect(() => {
+    auth.onAuthStateChanged((user)=>{
+      console.log(user)
+    })
+  })
   const router = useRouter()
   const { pid } = router.query
   //return <SignIn/>
