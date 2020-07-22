@@ -6,6 +6,7 @@ function SignOut() {
   return (
     <div className="SignIn">
       <button onClick={() => auth.signOut()}>
+        
         Sign Out
       </button>
     </div>
