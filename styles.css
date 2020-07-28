@@ -1,0 +1,42 @@
+body {
+  font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
+    'Arial', sans-serif;
+
+}
+h1 {
+  font-size: 40px;
+  color: blue;
+}
+.lanes {
+  background-color: lightgrey;
+  display: flex;
+  flex-direction: row;
+}
+
+.lane {
+  background-color: red;
+  margin: 0px 20px 0px 20px;
+  width: 350px;
+}
+.lane-header {
+  text-align: center;
+  padding: 10px;
+  background-color: lightblue;
+}
+.card-list {
+  background-color: inherit;
+}
+.card {
+  background-color: yellow;
+  width: 300px;
+  height: 300px;
+  border: 3px solid black;
+  
+  margin: 10px 20px;
+
+}
+.card>p{
+  text-align: center;
+}
+
+
