@@ -57,52 +57,66 @@ const Lane = (props) => {
       .onSnapshot(querySnapshot => {
         let cardArray = []
         querySnapshot.forEach((card)=> {
-          // console.log("card is ", card.data())
-          cardArray.push(card.data())
+          console.log("card is ", card.id)
+          // console.log("card meta data", card.metaData())
+
+          cardArray.push({id: card.id, data: card.data()})
         })
         setCards(cardArray)
         setLoading(false)
       })
   }, [])
   const onSubmitForm = (formData) => {
-    alert("Hoi your phone number is: " + formData.phoneNumber)
+    alert("Hoi your phone number is: " + formData.cardTitle)
     cardsRef.add({
-      title: formData.phoneNumber,
+      title: formData.cardTitle,
       laneId: laneId
     })
   } 
   const MakeCardButton = () => {
     return (
       <form onSubmit={handleSubmit(onSubmitForm)}>
-        <label>Phone number:
-          <input type="text" name="phoneNumber" ref={register}/>
+        <label>Card Title:
+          <input type="text" name="cardTitle" ref={register}/>
         </label>
         <input type="submit" value="Submit"/>
       </form>
     )
   }
-
+  const handleDelete = (id) => {
+    console.log("get Id", id)
+    cardsRef.doc(id).delete().then(function(){
+      console.log("document deleted", id)
+    }).catch(function(error) {
+      console.error("Error removing", error)
+    })
+  }
 
   return (
     <div className="lane">
       <h2 className="lane-header">{props.title}</h2>
-        <CardList cards={cards} />
+        <CardList cards={cards} handleDelete={handleDelete}/>
         <MakeCardButton/>
       <h2 className="lane-footer"></h2>
     </div>
 
   )
 }
-const CardList = ({cards}) => {
-  const cardItems = cards.map((card) => <Card title={card.title}/>)
+const CardList = ({cards, handleDelete}) => {
+  const cardItems = cards.map((card) => <Card id={card.id} title={card.data.title} handleDelete={handleDelete}/>)
   return (
     <div className="card-list">{cardItems}</div>
   )
 }
-const Card = ({title}) => {
+const Card = ({id, title, handleDelete}) => {
+  //TODO fix reference to collection and delete a card 
+  //cardsRef.
+  
+
   return (
     <div className="card">
       <p>{title}</p>
+      <button onClick={() => handleDelete(id)}>Delete Me</button>
     </div>
   )
 }
