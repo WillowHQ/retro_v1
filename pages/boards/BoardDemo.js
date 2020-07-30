@@ -66,6 +66,10 @@ const Lane = (props) => {
   }, [])
   const onSubmitForm = (formData) => {
     alert("Hoi your phone number is: " + formData.phoneNumber)
+    cardsRef.add({
+      title: formData.phoneNumber,
+      laneId: laneId
+    })
   } 
   const MakeCardButton = () => {
     return (
