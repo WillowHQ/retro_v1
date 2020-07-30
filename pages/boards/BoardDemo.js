@@ -1,5 +1,6 @@
 //make a board with a set of lanes that have cards. 
 import { useState, useEffect } from 'react'
+import { useForm } from 'react-hook-form'
 import { db } from '../../components/firebase'
 
 const Lanes = (props) => {
@@ -28,13 +29,14 @@ const Lanes = (props) => {
       laneId: 3
     }
   ]
-  console.log("boardRef is ", props.boardId)
-  const boardRef = db.collection('boards')
+  // console.log("boardRef is ", props.boardId)
+  const boardRef = db.collection('boards').doc(props.boardId)
   const lanePresentation = laneStructure.map((lane) => {
     return (
-        <Lane title={lane.title} laneId={lane.laneId} boardRef={boardRef} boardId={props.boardId}/>
+        <Lane title={lane.title} laneId={lane.laneId} boardRef={boardRef}/>
     )
   })
+ 
   return (
     <div className="lanes">
       {lanePresentation}
@@ -44,27 +46,44 @@ const Lanes = (props) => {
 const Lane = (props) => {
 
   const {laneId}  = props
-  const [cards, setCards] = useState([{title: "test"}])
+  const [cards, setCards] = useState([])
+  const { register, handleSubmit } = useForm()
   const [loading, setLoading] = useState(false)
+  const cardsRef = props.boardRef.collection("cards")
+
   useEffect(()=> {
-    //let cardsRef = props.boardRef.doc("7A4O8kG4pdSx5ChRyCrv").collection("cards")
     
     cardsRef.where("laneId", "==", laneId)
       .onSnapshot(querySnapshot => {
         let cardArray = []
         querySnapshot.forEach((card)=> {
-          console.log("card is ", card.data())
+          // console.log("card is ", card.data())
           cardArray.push(card.data())
         })
         setCards(cardArray)
         setLoading(false)
       })
   }, [])
-  
+  const onSubmitForm = (formData) => {
+    alert("Hoi your phone number is: " + formData.phoneNumber)
+  } 
+  const MakeCardButton = () => {
+    return (
+      <form onSubmit={handleSubmit(onSubmitForm)}>
+        <label>Phone number:
+          <input type="text" name="phoneNumber" ref={register}/>
+        </label>
+        <input type="submit" value="Submit"/>
+      </form>
+    )
+  }
+
+
   return (
     <div className="lane">
       <h2 className="lane-header">{props.title}</h2>
         <CardList cards={cards} />
+        <MakeCardButton/>
       <h2 className="lane-footer"></h2>
     </div>
 
@@ -75,7 +94,6 @@ const CardList = ({cards}) => {
   return (
     <div className="card-list">{cardItems}</div>
   )
-  
 }
 const Card = ({title}) => {
   return (
@@ -90,7 +108,7 @@ const BoardDemo = (props) => {
   return (
     <div className="board">
       <p> board id is: {props.boardId} </p>
-      <Lanes boardId={props.boardId} />
+      {props.boardId ? <Lanes boardId={props.boardId} /> : <div>Loading...</div>}
     </div>
   )
 }
