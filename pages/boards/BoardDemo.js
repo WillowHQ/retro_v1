@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { db } from '../../components/firebase'
 
-const Lanes = () => {
+const Lanes = (props) => {
   const laneStructure = [
     {
       //things to sustain 
@@ -28,9 +28,11 @@ const Lanes = () => {
       laneId: 3
     }
   ]
+  console.log("boardRef is ", props.boardId)
+  const boardRef = db.collection('boards')
   const lanePresentation = laneStructure.map((lane) => {
     return (
-        <Lane title={lane.title} laneId={lane.laneId}/>
+        <Lane title={lane.title} laneId={lane.laneId} boardRef={boardRef} boardId={props.boardId}/>
     )
   })
   return (
@@ -40,12 +42,13 @@ const Lanes = () => {
   )
 }
 const Lane = (props) => {
-  let cardsRef = db.collection('cards')
+
   const {laneId}  = props
-  // const cards = []
   const [cards, setCards] = useState([{title: "test"}])
   const [loading, setLoading] = useState(false)
   useEffect(()=> {
+    //let cardsRef = props.boardRef.doc("7A4O8kG4pdSx5ChRyCrv").collection("cards")
+    
     cardsRef.where("laneId", "==", laneId)
       .onSnapshot(querySnapshot => {
         let cardArray = []
@@ -81,17 +84,13 @@ const Card = ({title}) => {
     </div>
   )
 }
-const Header = () => {
-  return (
-    <div className="header"/>
-  )
-}
 
-const BoardDemo = () => {
+const BoardDemo = (props) => {
+
   return (
     <div className="board">
-      <Header/>
-      <Lanes/>
+      <p> board id is: {props.boardId} </p>
+      <Lanes boardId={props.boardId} />
     </div>
   )
 }

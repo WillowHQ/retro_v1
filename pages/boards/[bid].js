@@ -23,7 +23,7 @@ function Board(){
         <p>Board: {bid}</p>
       </header>
       <main>
-        <BoardDemo/>
+        <BoardDemo boardId={bid}/>
       </main>
     </>
   )
