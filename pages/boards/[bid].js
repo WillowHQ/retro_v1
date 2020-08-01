@@ -17,6 +17,10 @@ function Board(){
   const { bid } = router.query
   //return <SignIn/>
   //TODO turn dynamic route on 
+
+  //don't let this pass it to a board unless there is a board in existence ? 
+  //might need to think about this a Bit
+  
   return(
     <>
       <header>

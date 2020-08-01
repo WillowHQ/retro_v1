@@ -109,9 +109,6 @@ const CardList = ({cards, handleDelete}) => {
   )
 }
 const Card = ({id, title, handleDelete}) => {
-  //TODO fix reference to collection and delete a card 
-  //cardsRef.
-  
 
   return (
     <div className="card">
