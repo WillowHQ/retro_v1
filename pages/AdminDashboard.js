@@ -2,7 +2,7 @@ import { db, auth } from '../components/firebase'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import BoardContainer from '../components/BoardContainer.js'
-
+import { Button } from '@material-ui/core'
 
 //Add links
 
@@ -80,8 +80,9 @@ export default function AdminDashboard(){
     <div>
       <h1>This is the admin dashboard</h1>
       <Board title="test"/>
+      <Button variant="contained" color="secondary">Hi there</Button>
       {loading ? <Loading/> : <Boards boards={boards}/>}
-      <button onClick={addBoard}>Now we need a place to make a button</button>
+      <Button onClick={addBoard}>Now we need a place to make a button</Button>
     </div>
 
   )
