@@ -103,15 +103,15 @@ const Lane = (props) => {
   )
 }
 const CardList = ({cards, handleDelete}) => {
-  const cardItems = cards.map((card) => <Card id={card.id} title={card.data.title} handleDelete={handleDelete}/>)
+  const cardItems = cards.map((card) => <IssueCard id={card.id} title={card.data.title} handleDelete={handleDelete}/>)
   return (
     <div className="card-list">{cardItems}</div>
   )
 }
-const Card = ({id, title, handleDelete}) => {
+const IssueCard = ({id, title, handleDelete}) => {
 
   return (
-    <div className="card">
+    <div>
       <p>{title}</p>
       <button onClick={() => handleDelete(id)}>Delete Me</button>
     </div>

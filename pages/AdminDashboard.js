@@ -2,11 +2,9 @@ import { db, auth } from '../components/firebase'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import BoardContainer from '../components/BoardContainer.js'
-import { Button } from '@material-ui/core'
 
-//Add links
 
-const Board = (props) => <Link href="/boards/7A4O8kG4pdSx5ChRyCrv">Things</Link>
+const Board = (props) => <Link href="/boards/7A4O8kG4pdSx5ChRyCrv">Thing</Link>
 const Boards = ({ boards }) => {
 
   //structure a proper URL 
@@ -69,7 +67,6 @@ export default function AdminDashboard(){
   //so I want to add a new board if I click the button. so inside of the admin collection get a reference to that collection 
   // then use that reference to add a new board with an auto generated id, and a dummy title. 
   const addBoard = () => {
-
     boardRef.add({
       userId: user,
       title: "New Board"
@@ -77,14 +74,18 @@ export default function AdminDashboard(){
   }
 
   return (
-    <div>
+      
+        
+    <div className="container">
       <h1>This is the admin dashboard</h1>
       <Board title="test"/>
-      <Button variant="contained" color="secondary">Hi there</Button>
+      <Board title="test"/>
+      <Board title="test"/>
+      
       {loading ? <Loading/> : <Boards boards={boards}/>}
-      <Button onClick={addBoard}>Now we need a place to make a button</Button>
+      <button onClick={addBoard}>Create a new board</button>
     </div>
-
+  
   )
   
 }
