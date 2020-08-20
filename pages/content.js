@@ -1,5 +1,14 @@
-import { Thing } from '@quantummob/contentful'
+import { Layout } from 'antd'
 
-const Content = () => <Thing />
+const { Header, Footer, Content } = Layout
 
-export default Content
+
+const ContentPanel = () => (
+  <Layout>
+    <Header>Header</Header>
+    <Content>Content</Content>
+    <Footer>Footer</Footer>
+  </Layout>
+)
+
+export default ContentPanel

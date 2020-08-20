@@ -1,5 +1,8 @@
 import { useRouter } from 'next/router'
+import { Layout } from 'antd'
 import BoardDemo from './BoardDemo'
+
+const { Header, Footer, Content } = Layout
 //import SignIn from '../../components/SignIn.js'
 
 //TODO how do we get the board to load on this route. 
@@ -22,14 +25,14 @@ function Board(){
   //might need to think about this a Bit
   
   return(
-    <>
-      <header>
+    <Layout>
+      <Header>
         <p>Board: {bid}</p>
-      </header>
-      <main>
+      </Header>
+      <Content>
         <BoardDemo boardId={bid}/>
-      </main>
-    </>
+      </Content>
+    </Layout>
   )
 }
 
