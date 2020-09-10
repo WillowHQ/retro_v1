@@ -1,14 +1,26 @@
-import { Layout } from 'antd'
+import { Layout, Row, Col } from 'antd'
 
-const { Header, Footer, Content } = Layout
+const { Header, Footer, Content,Grid} = Layout
 
 
-const ContentPanel = () => (
-  <Layout>
-    <Header>Header</Header>
-    <Content>Content</Content>
-    <Footer>Footer</Footer>
-  </Layout>
-)
+
+const ContentPanel = () => {
+  return (
+    <>
+    <Row>
+      <Col span={24}>col</Col>
+    </Row>
+    
+    </>
+
+  )
+}
+
+  
+     
+
+  
+
+
 
 export default ContentPanel
